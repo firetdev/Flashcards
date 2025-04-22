@@ -1,0 +1,136 @@
+class Card {
+    constructor(english, hebrew) {
+        this.english = english;
+        this.hebrew = hebrew;
+    }
+}
+
+let cards = [];
+let currentCard = null;
+let cardSide = 0;
+let flipped = false;
+
+function flip() {
+    cardSide == 0 ? cardSide = 1 : cardSide = 0;
+    displayCard();
+}
+
+function flipAll() {
+    flipped ? flipped = false : flipped = true;
+    displayCard();
+}
+
+function displayCard() {
+    if (currentCard == null)
+        return;
+    let ourCardSide = cardSide;
+    if (flipped)
+        ourCardSide == 0 ? ourCardSide = 1 : ourCardSide = 0;
+    if (ourCardSide == 0)
+        document.getElementById('cardtxt').textContent = cards[currentCard].hebrew;
+    else
+        document.getElementById('cardtxt').textContent = cards[currentCard].english;
+}
+
+function nextCard() {
+    currentCard++;
+    cardSide = 0;
+    if (currentCard >= cards.length) {
+        currentCard = 0;
+        alert('Card cycle complete!');
+    }
+    displayCard();
+}
+
+function getCards() {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            readStringByLine(request.responseText);
+        }
+    };
+    request.open('POST', 'getCards.php', true);
+    request.send();
+}
+
+function readStringByLine(inputString) {
+    const lines = inputString.split('\n');
+    lines.forEach((line, index) => {
+        parseLine(line);
+    });
+}
+
+function parseLine(input) {
+    let [text1, text2] = input.split(':');
+    let duplicate = false;
+    for (let i = 0; i < cards.length; i++) {
+        if (text1 == cards[i].english && text2 == cards[i].hebrew)
+            duplicate = true;
+    }
+    if (text1 != '' && text1 != null && !duplicate)
+        cards.push(new Card(text1, text2));
+}
+
+function addCard() {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(request.responseText);
+        }
+    };
+    request.open('POST', 'backend.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    let data = `english=${encodeURIComponent(document.getElementById('anglit').value)}&hebrew=${encodeURIComponent(document.getElementById('ivrit').value)}`;
+    request.send(data);
+    document.getElementById('anglit').value = '';
+    document.getElementById('ivrit').value = '';
+}
+
+function removeCard(index) {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(request.responseText);
+        }
+    };
+    request.open('POST', 'removeCard.php', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    let data = `index=${encodeURIComponent(index)}`;
+    request.send(data);
+    cards = [];
+    window.setTimeout('init()', '2000');
+}
+
+document.getElementById('delete').addEventListener('click', function() {
+    removeCard(currentCard);
+    displayCard();
+});
+
+document.getElementById('flip').addEventListener('click', function() {
+    flipAll();
+});
+
+document.getElementById('next').addEventListener('click', function() {
+   nextCard();
+});
+
+document.getElementById('addCard').addEventListener('click', function() {
+    addCard();
+});
+
+document.getElementById('card').addEventListener('click', function() {
+    flip();
+});
+
+function init2() {
+    if (cards.length > 0)
+        currentCard = 0;
+    displayCard();
+}
+
+function init() {
+    getCards();
+    window.setTimeout('init2()', '2000');
+}
+
+window.setTimeout('init()', '1000');
