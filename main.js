@@ -98,8 +98,9 @@ function removeCard(index) {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     let data = `index=${encodeURIComponent(index)}`;
     request.send(data);
+    let prevCardsLength = cards.length;
     cards = [];
-    if (currentCard < cards.length - 1)
+    if (currentCard < prevCardsLength - 1)
         window.setTimeout('init(false)', '2000');
     else
         window.setTimeout('init(true)', '2000');
@@ -127,7 +128,6 @@ document.getElementById('card').addEventListener('click', function() {
 });
 
 function init2(loading) {
-    console.log(loading);
     if (cards.length > 0) {
         if (loading)
             currentCard = 0;
