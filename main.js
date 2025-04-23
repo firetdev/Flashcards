@@ -12,6 +12,7 @@ let flipped = false;
 
 function flip() {
     cardSide == 0 ? cardSide = 1 : cardSide = 0;
+    document.getElementById('cardtxt').style.transform = 'rotateY(180deg)';
     displayCard();
 }
 
@@ -106,6 +107,16 @@ function removeCard(index) {
         window.setTimeout('init(true)', '2000');
 }
 
+function endFlip() {
+    document.getElementById('cardtxt').style.transform = 'rotateY(0deg)';
+    document.getElementById('card').classList.remove('animationClass');
+}
+
+function flipAnim() {
+    document.getElementById('card').classList.add('animationClass');
+    window.setTimeout('endFlip()', '300');
+}
+
 document.getElementById('delete').addEventListener('click', function() {
     removeCard(currentCard);
     displayCard();
@@ -124,7 +135,8 @@ document.getElementById('addCard').addEventListener('click', function() {
 });
 
 document.getElementById('card').addEventListener('click', function() {
-    flip();
+    window.setTimeout('flip()', '165');
+    flipAnim();
 });
 
 function init2(loading) {

@@ -38,3 +38,17 @@ body {
 .button:hover {
     background-color: rgb(101, 218, 218);
 }
+.animationClass {
+    animation: 0.33s linear flip;
+}
+@keyframes flip {
+	0% {
+    	transform: rotateX(0deg) rotateY(0deg);
+    }
+    50% {
+    	transform: rotateX(20deg) rotateY(-90deg);
+    }
+    100% {
+    	transform: rotateX(0deg) rotateY(-180deg);
+    }
+}
