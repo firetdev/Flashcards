@@ -84,6 +84,7 @@ function addCard() {
     request.send(data);
     document.getElementById('anglit').value = '';
     document.getElementById('ivrit').value = '';
+    window.setTimeout('init(false)', '2000');
 }
 
 function removeCard(index) {
@@ -123,6 +124,7 @@ document.getElementById('card').addEventListener('click', function() {
 });
 
 function init2(loading) {
+    console.log(loading);
     if (cards.length > 0) {
         if (loading)
             currentCard = 0;
