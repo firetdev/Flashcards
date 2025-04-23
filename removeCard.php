@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['index'])) {
-    $index = intval($_POST['index']) + 1;
+    $index = intval($_POST['index']);
     $filename = "cards.txt";
 
     if (file_exists($filename)) {
