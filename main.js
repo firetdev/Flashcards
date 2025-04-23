@@ -98,7 +98,7 @@ function removeCard(index) {
     let data = `index=${encodeURIComponent(index)}`;
     request.send(data);
     cards = [];
-    window.setTimeout('init()', '2000');
+    window.setTimeout('init(false)', '2000');
 }
 
 document.getElementById('delete').addEventListener('click', function() {
@@ -122,15 +122,17 @@ document.getElementById('card').addEventListener('click', function() {
     flip();
 });
 
-function init2() {
-    if (cards.length > 0)
-        currentCard = 0;
+function init2(loading) {
+    if (cards.length > 0) {
+        if (loading)
+            currentCard = 0;
+    }
     displayCard();
 }
 
-function init() {
+function init(loading) {
     getCards();
-    window.setTimeout('init2()', '2000');
+    window.setTimeout(`init2(${loading})`, '2000');
 }
 
-window.setTimeout('init()', '1000');
+window.setTimeout('init(true)', '1000');
