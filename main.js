@@ -99,7 +99,10 @@ function removeCard(index) {
     let data = `index=${encodeURIComponent(index)}`;
     request.send(data);
     cards = [];
-    window.setTimeout('init(false)', '2000');
+    if (currentCard < cards.length)
+        window.setTimeout('init(false)', '2000');
+    else
+        window.setTimeout('init(true)', '2000');
 }
 
 document.getElementById('delete').addEventListener('click', function() {
@@ -124,7 +127,6 @@ document.getElementById('card').addEventListener('click', function() {
 });
 
 function init2(loading) {
-    console.log(loading);
     if (cards.length > 0) {
         if (loading)
             currentCard = 0;
