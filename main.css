@@ -14,6 +14,7 @@ body {
     align-items: center;
 }
 #card {
+    z-index: 1;
     width: 560px;
     height: 220px;
     padding-top: 120px;
@@ -22,6 +23,11 @@ body {
     font-size: 150%;
     color:rgb(25, 25, 25);
     cursor: pointer;
+    position: relative;
+}
+#cardtxt {
+    position: relative;
+    z-index: 30;
 }
 .button {
     margin-top: 10px;
@@ -51,4 +57,34 @@ body {
     100% {
     	transform: rotateX(0deg) rotateY(-180deg);
     }
+}
+#redline {
+    width: 560px;
+    height: 2px;
+    background-color: rgb(215, 0, 0);
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    z-index: 2;
+    padding: 0px;
+    margin: 0px;
+}
+#bluelines {
+    position: absolute;
+    top: 80.6px;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    align-items: center;
+    z-index: 2;
+}
+.blueline {
+    position: relative;
+    width: 560px;
+    height: 1px;
+    background-color: rgb(0, 125, 215);
+    margin-bottom: 0px;
+    padding: 0px;
 }

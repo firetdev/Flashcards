@@ -27,10 +27,13 @@ function displayCard() {
     let ourCardSide = cardSide;
     if (flipped)
         ourCardSide == 0 ? ourCardSide = 1 : ourCardSide = 0;
-    if (ourCardSide == 0)
+    if (ourCardSide == 0) {
         document.getElementById('cardtxt').textContent = cards[currentCard].hebrew;
-    else
+        document.getElementById('lines').hidden = true;
+    } else {
         document.getElementById('cardtxt').textContent = cards[currentCard].english;
+        document.getElementById('lines').hidden = false;
+    }
 }
 
 function nextCard() {
@@ -152,4 +155,5 @@ function init(loading) {
     window.setTimeout(`init2(${loading})`, '2000');
 }
 
+document.getElementById('lines').hidden = true;
 window.setTimeout('init(true)', '1000');
