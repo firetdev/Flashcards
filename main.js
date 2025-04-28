@@ -49,9 +49,8 @@ function nextCard() {
 function getCards() {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4 && this.status == 200)
             readStringByLine(request.responseText);
-        }
     };
     request.open('POST', 'getCards.php', true);
     request.send();
@@ -78,9 +77,8 @@ function parseLine(input) {
 function addCard() {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4 && this.status == 200)
             console.log(request.responseText);
-        }
     };
     request.open('POST', 'backend.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -94,9 +92,8 @@ function addCard() {
 function removeCard(index) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4 && this.status == 200)
             console.log(request.responseText);
-        }
     };
     request.open('POST', 'removeCard.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
